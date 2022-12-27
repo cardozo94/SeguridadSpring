@@ -21,21 +21,26 @@ public class SeguridadAppConfig extends WebSecurityConfigurerAdapter {
 		UserBuilder usuarios = User.withDefaultPasswordEncoder();
 		
 		auth.inMemoryAuthentication()
-			.withUser(usuarios.username("Camilo").password("123456789").roles("administrador"))
+			.withUser(usuarios.username("Camilo").password("123456789").roles("usuario","ayudante","administrador"))
 			.withUser(usuarios.username("Lorena").password("987654321").roles("usuario"))
-			.withUser(usuarios.username("Francisco").password("147852369").roles("ayudante"))
-			.withUser(usuarios.username("Mireya").password("963258741").roles("administrador"));
+			.withUser(usuarios.username("Francisco").password("147852369").roles("usuario","ayudante"))
+			.withUser(usuarios.username("Mireya").password("963258741").roles("usuario","ayudante","administrador"));
 		
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests().anyRequest().authenticated()
+		//http.authorizeHttpRequests().anyRequest().authenticated()
+		http.authorizeRequests()
+		.antMatchers("/").hasRole("usuario")
+		.antMatchers("/administradores/**").hasRole("administrador")
+		.antMatchers("/ayudantes/**").hasRole("ayudante")
 		.and().formLogin()
 		.loginPage("/formularioLogin")
 		.loginProcessingUrl("/authenticacionUsuario")
 		.permitAll()
-		.and().logout().permitAll();
+		.and().logout().permitAll()
+		.and().exceptionHandling().accessDeniedPage("/acceso-denegado");
 	}
 	
 

@@ -10,5 +10,21 @@ public class MyController {
 	public String muestraInicio() {
 		return "inicio";
 	}
+	
+	//Agregar mapping a administadores
+	@GetMapping("/administradores")
+	public String muestraAdministradores() {
+		return "administradores";
+	}
 
+	//Agregar mapping a ayudantes
+	@GetMapping("/ayudantes")
+	public String muestraAyudantes() {
+		return "ayudantes";
+	}
+	
+	@GetMapping("/acceso-denegado")
+	public String muestraAccesoDenegado() {
+		return "acceso-denegado";
+	}
 }
