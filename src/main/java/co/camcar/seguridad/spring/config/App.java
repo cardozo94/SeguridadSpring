@@ -23,10 +23,9 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "co.camcar.seguridad.spring")
+@ComponentScan(basePackages = {"co.camcar.seguridad.spring"})
 @PropertySource("classpath:persistencia-mysql.properties")
-public class App 
-{
+public class App{
 	
 	@Autowired
 	private Environment env;
@@ -36,6 +35,7 @@ public class App
 	
 	@Bean
 	public ViewResolver viewResolver() {
+		System.out.println("==========> viewResolver");
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setPrefix("/WEB-INF/view/");
 		resolver.setSuffix(".jsp");
@@ -45,6 +45,7 @@ public class App
 	//bean para seguridad
 	@Bean
 	public DataSource seguridadDataSource() {
+		log.info("======> seguridadDataSource");
 		//crear pool de conexiones
 		
 		ComboPooledDataSource poolDataSource = new ComboPooledDataSource();
@@ -71,11 +72,16 @@ public class App
 		
 		//Establecer las propiedades del pool de conexiones
 		
-		poolDataSource.setInitialPoolSize(Integer.valueOf(env.getProperty("connection.pool.initialPoolSize")));
-		poolDataSource.setMinPoolSize(Integer.valueOf(env.getProperty("connection.pool.minPoolSize")));
-		poolDataSource.setMaxPoolSize(Integer.valueOf(env.getProperty("connection.pool.maxPoolSize")));
-		poolDataSource.setMaxIdleTime(Integer.valueOf(env.getProperty("connection.pool.maxIdleTime")));
+		poolDataSource.setInitialPoolSize(getPropPool("connection.pool.initialPoolSize"));
+		poolDataSource.setMinPoolSize(getPropPool("connection.pool.minPoolSize"));
+		poolDataSource.setMaxPoolSize(getPropPool("connection.pool.maxPoolSize"));
+		poolDataSource.setMaxIdleTime(getPropPool("connection.pool.maxIdleTime"));
 		
 		return poolDataSource;
+	}
+	
+	private int getPropPool(String nombreProp) {
+		String prop = env.getProperty(nombreProp);
+		return Integer.parseInt(prop);
 	}
 }

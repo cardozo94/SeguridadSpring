@@ -6,19 +6,19 @@ public class ServletInitializer extends AbstractAnnotationConfigDispatcherServle
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		// TODO Auto-generated method stub
+		System.out.println("==========> getRootConfigClasses");
 		return null;
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		// TODO Auto-generated method stub
+		System.out.println("==========> getServletConfigClasses");
 		return new Class[] {App.class};
 	}
 
 	@Override
 	protected String[] getServletMappings() {
-		// TODO Auto-generated method stub
+		System.out.println("==========> getServletMappings");
 		return new String[] {"/"};
 	}
 
