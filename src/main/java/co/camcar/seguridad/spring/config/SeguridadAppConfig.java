@@ -32,7 +32,6 @@ public class SeguridadAppConfig extends WebSecurityConfigurerAdapter {
 			.withUser(usuarios.username("Mireya").password("963258741").roles("usuario","ayudante","administrador"));
 		*/
 		//conectar a BBDD donde esten los usuario, contraseña y perfil
-		
 		auth.jdbcAuthentication().dataSource(seguridadDataSource);
 		
 		
@@ -42,9 +41,9 @@ public class SeguridadAppConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		//http.authorizeHttpRequests().anyRequest().authenticated()
 		http.authorizeRequests()
-		.antMatchers("/").hasRole("usuario")
-		.antMatchers("/administradores/**").hasRole("administrador")
-		.antMatchers("/ayudantes/**").hasRole("ayudante")
+		.antMatchers("/").hasRole("USUARIO")
+		.antMatchers("/administradores/**").hasRole("ADMINISTRADOR")
+		.antMatchers("/ayudantes/**").hasRole("AYUDANTE")
 		.and().formLogin()
 		.loginPage("/formularioLogin")
 		.loginProcessingUrl("/authenticacionUsuario")

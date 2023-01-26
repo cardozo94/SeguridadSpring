@@ -19,8 +19,6 @@ public class MyWebAppInitializer implements WebApplicationInitializer {
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		
-		log.info("=========> onStartup");
-		
 		AnnotationConfigWebApplicationContext context
         = new AnnotationConfigWebApplicationContext();
       context.setConfigLocation("co.camcar.seguridad.spring.config");
@@ -30,9 +28,13 @@ public class MyWebAppInitializer implements WebApplicationInitializer {
       ServletRegistration.Dynamic dispatcher = servletContext
         .addServlet("dispatcher", new DispatcherServlet(context));
       
-      dispatcher.setLoadOnStartup(1);
-      dispatcher.addMapping("/");
-
+      try {
+    	  dispatcher.setLoadOnStartup(1);
+    	  dispatcher.addMapping("/");
+      }catch (Exception e) {
+		e.printStackTrace();
+      }
 	}
 
 }
+

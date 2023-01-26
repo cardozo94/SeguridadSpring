@@ -21,14 +21,14 @@
 		</p>
 		<br/>
 		<!-- link para administradores -->
-		<security:authorize access="hasRole('administrador')">
+		<security:authorize access="hasRole('ADMINISTRADOR')">
 		<p>
 			<a href="${pageContext.request.contextPath}/administradores">Ir a zona de administradores</a>
 		</p>
 		</security:authorize>
 		<!-- link para ayudantes -->
 		
-		<security:authorize access="hasRole('ayudante')">
+		<security:authorize access="hasRole('AYUDANTE')">
 		<p>
 			<a href="${pageContext.request.contextPath}/ayudantes">Ir a zona de ayudantes</a>
 		</p>
